@@ -5,7 +5,7 @@ const CategoryItem = (props) => {
 
   return (
     <div className="category-container">
-      <img src={imageURL} className="background-img" alt="something"></img>  
+      <img className="background-img" src={imageURL} alt={title}></img>  
       <div className="category-body-container">
         <h2>{title}</h2>
         <p>Shop Now</p>
