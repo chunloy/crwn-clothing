@@ -10,8 +10,8 @@ const Navigation = () => {
           <Logo className="logo" />
         </Link>
         <div className="nav-links-container">
-          <Link className="nav-link" to="/">
-            Placeholeder
+          <Link className="nav-link" to="/login">
+            Login
           </Link>
         </div>
       </div>
