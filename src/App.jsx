@@ -1,6 +1,6 @@
 import Navigation from "./routes/Navigation";
 import Home from "./routes/Home";
-import Form from "./routes/Form";
+import SignIn from "./routes/SignIn"
 import {Routes, Route} from 'react-router-dom';
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
-        <Route path="login" element={<Form />} />
+        <Route path="sign-in" element={<SignIn />} />
       </Route>
     </Routes>
     
