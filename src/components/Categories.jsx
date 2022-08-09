@@ -1,8 +1,7 @@
 import CategoryItem from "./CategoryItem";
 import "./categories.scss";
 
-const Categories = (props) => {
-  const { categories } = props;
+const Categories = ({ categories }) => {
   const categoryItems = categories.map(category => {
     return (
       <CategoryItem 
