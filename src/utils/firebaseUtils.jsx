@@ -16,7 +16,6 @@ const firebaseConfig = {
   appId: "1:742507019573:web:9951dd902c510fd8c6a07c"
 };
 
-
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
@@ -45,6 +44,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
   const userDocRef = doc(db, 'users', uid);
 
   try {
+    // check if user exists in db
     const userSnapshot = await getDoc(userDocRef);
 
     // add new user to db
@@ -53,43 +53,32 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
     return userDocRef;
 
   } catch(err) {
-    console.log('Error creating user document reference', err);
+    console.log('Error creating the user', err.message);
   };
 };
 
 // Create new user in db
 const createUser = async (userDocRef, displayName, email, additionalInfo) => {
   const createdAt = new Date();
-  try {
-    await setDoc(userDocRef, {
-      displayName,
-      email,
-      createdAt,
-      ...additionalInfo,
-    })
-  } catch(err) {
-    console.log('Error creating user', err.message);
-  };
+
+  await setDoc(userDocRef, {
+    displayName,
+    email,
+    createdAt,
+    ...additionalInfo,
+  });
 };
 
+// authenticate new user with credentials
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
-  
-  try {
-    return await createUserWithEmailAndPassword(auth, email, password);
-    
-  } catch (err) {
-    console.log('Error creating user', err.message);
-  };
+
+  return await createUserWithEmailAndPassword(auth, email, password);  
 };
 
+// authenticate existing user with credentials
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   
-  try {
-    return await signInWithEmailAndPassword(auth, email, password);
-    
-  } catch (err) {
-    console.log('Error signing in user', err.message);
-  };
+  return await signInWithEmailAndPassword(auth, email, password);
 };
