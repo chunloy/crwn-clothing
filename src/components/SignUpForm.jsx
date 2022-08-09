@@ -2,7 +2,7 @@ import { useState } from "react";
 import FormInput from "./FormInput";
 import Button from "./Button";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../utils/firebaseUtils";
-import "./EmailSignIn.scss";
+import "./SignUpForm.scss";
 
 const EmailSignIn = () => {
   const initializeFields = {
