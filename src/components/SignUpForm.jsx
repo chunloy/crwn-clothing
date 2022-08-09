@@ -25,9 +25,11 @@ const SignUpForm = () => {
     setFormFields({...formFields, [name]: value});
   };
 
+  // authenticate new user with credentials
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
+    // check for password match 
     if(password !== confirmPassword) return alert(`Passwords don't match!`);
 
     try {
@@ -38,7 +40,7 @@ const SignUpForm = () => {
     } catch(err) {
       switch(err.code) {
         case 'auth/email-already-in-use':
-          alert("There's already an account associated with this email addrress. Sign in instead.")
+          alert("There's already an account associated with this email address. Sign in instead.")
           break;
 
         default: 
@@ -48,46 +50,49 @@ const SignUpForm = () => {
     };
   };
 
+  const inputAttributes = [
+    {
+      required: true,
+      label: "Display Name",
+      type: "text",
+      name: "displayName",
+      value: displayName,
+      onChange: onChangeHandler,
+    },
+    {
+      required: true,
+      label: "Email",
+      type: "email",
+      name: "email",
+      value: email,
+      onChange: onChangeHandler,
+    },
+    {
+      required: true,
+      label: "Password",
+      type: "password",
+      name: "password",
+      value: password,
+      onChange: onChangeHandler,
+    },
+    {
+      required: true,
+      label: "Confirm Password",
+      type: "password",
+      name: "confirmPassword",
+      value: confirmPassword,
+      onChange: onChangeHandler,
+    },
+  ];
+
+  const inputForms = inputAttributes.map((a, index) => <FormInput key={index} {...a}/>);
+
   return (
     <div className="sign-up-container">
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={onSubmitHandler}>
-        <FormInput 
-          required 
-          label="Display Name" 
-          type="text" 
-          name="displayName" 
-          value={displayName} 
-          onChange={onChangeHandler}
-        />
-        
-        <FormInput 
-          required 
-          label="Email" 
-          type="email" 
-          name="email" 
-          value={email} 
-          onChange={onChangeHandler}
-        />
-        
-        <FormInput 
-          required 
-          label="Password" 
-          type="password" 
-          name="password" 
-          value={password} 
-          onChange={onChangeHandler}
-        />
-        
-        <FormInput 
-          required 
-          label="Confirm Password" 
-          type="password" 
-          name="confirmPassword" 
-          value={confirmPassword} 
-          onChange={onChangeHandler}
-        />
+        {inputForms}
 
         <Button type="submit">Sign Up</Button>
       </form>
