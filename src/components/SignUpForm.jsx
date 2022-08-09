@@ -4,7 +4,7 @@ import Button from "./Button";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../utils/firebaseUtils";
 import "./SignUpForm.scss";
 
-const EmailSignIn = () => {
+const SignUpForm = () => {
   const initializeFields = {
     displayName: '',
     email: '',
@@ -87,4 +87,4 @@ const EmailSignIn = () => {
   );
 };
 
-export default EmailSignIn;
+export default SignUpForm;

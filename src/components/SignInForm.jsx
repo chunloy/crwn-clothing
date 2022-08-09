@@ -1,8 +1,7 @@
-
 import Button from "./Button";
 import { signInWithGooglePopup, createUserDocumentFromAuth } from "../utils/firebaseUtils";
 
-const GoogleSignIn = () => {
+const SignInForm = () => {
   const signIn = async () => {
     try {
       const {user} = await signInWithGooglePopup();
@@ -22,4 +21,4 @@ const GoogleSignIn = () => {
   );
 };
 
-export default GoogleSignIn;
+export default SignInForm;
