@@ -36,7 +36,15 @@ const SignUpForm = () => {
       resetForm();
       
     } catch(err) {
-      console.log('Encountered an error creating user', err.message);
+      switch(err.code) {
+        case 'auth/email-already-in-use':
+          alert("There's already an account associated with this email addrress. Sign in instead.")
+          break;
+
+        default: 
+          console.log('Encountered an error creating user', err.message);
+          break;
+      };
     };
   };
 

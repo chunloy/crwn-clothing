@@ -26,12 +26,23 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password);
-      console.log(response);
+      await signInAuthUserWithEmailAndPassword(email, password);
       resetForm();
       
     } catch(err) {
-      console.log('Error with sign in', err.message);
+      switch(err.code) {
+        case 'auth/wrong-password':
+          alert("Incorrect password for this account. Try again.");
+          break;
+        
+        case 'auth/user-not-found':
+          alert("No user associated with this email. Sign up instead.");
+          break;
+    
+        default:
+          console.log('Encountered an error with user sign in', err.message);
+          break;
+      };
     };
   };
 
@@ -41,7 +52,7 @@ const SignInForm = () => {
       await createUserDocumentFromAuth(user);
   
     } catch(err) {
-      console.log('Error with sign in', err.message);
+      console.log("Encountered an error with Google sign in", err.message);
     };
   };
   return (
