@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FormInput from "./FormInput";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../utils/firebaseUtils";
 
 const EmailSignIn = () => {
@@ -28,7 +29,7 @@ const EmailSignIn = () => {
     if(password !== confirmPassword) return alert(`Passwords don't match!`);
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword( email, password);
+      const { user } = await createAuthUserWithEmailAndPassword(email, password);
       await createUserDocumentFromAuth(user, { displayName });
       resetForm();
       
@@ -41,17 +42,41 @@ const EmailSignIn = () => {
     <div>
       <h1>Sign up with your email and password</h1>
       <form onSubmit={onSubmitHandler}>
-        <label>Display Name</label>
-        <input required type="text" name="displayName" value={displayName} onChange={onChangeHandler} />
+        <FormInput 
+          required 
+          label="Display Name" 
+          type="text" 
+          name="displayName" 
+          value={displayName} 
+          onChange={onChangeHandler}
+        />
         
-        <label>Email</label>
-        <input required type="email" name="email" value={email} onChange={onChangeHandler} />
-
-        <label>Password</label>
-        <input required type="password" name="password" value={password} onChange={onChangeHandler} />
-
-        <label>Confirm Password</label>
-        <input required type="password" name="confirmPassword" value={confirmPassword} onChange={onChangeHandler} />
+        <FormInput 
+          required 
+          label="Email" 
+          type="email" 
+          name="email" 
+          value={email} 
+          onChange={onChangeHandler}
+        />
+        
+        <FormInput 
+          required 
+          label="Password" 
+          type="password" 
+          name="password" 
+          value={password} 
+          onChange={onChangeHandler}
+        />
+        
+        <FormInput 
+          required 
+          label="Confirm Password" 
+          type="password" 
+          name="confirmPassword" 
+          value={confirmPassword} 
+          onChange={onChangeHandler}
+        />
 
         <button type="submit">Sign Up</button>
       </form>

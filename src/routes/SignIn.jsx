@@ -1,7 +1,7 @@
 import GoogleSignIn from "../components/GoogleSignIn";
 import EmailSignIn from "../components/Form";
 
-const Form = () => {
+const SignIn = () => {
   return (
     <>
       <GoogleSignIn />
@@ -10,4 +10,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SignIn;
