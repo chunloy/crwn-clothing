@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/crown.svg"
-import "./navigation.scss";
+import "./Navigation.scss";
 
 const Navigation = () => {
   return (

@@ -1,4 +1,4 @@
-import "./formInput.scss";
+import "./FormInput.scss";
 
 const FormInput = ({ label, ...otherProps }) => {
   const labelClass = `form-input-label ${otherProps.value.length ? 'shrink' : ''}`;

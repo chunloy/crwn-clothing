@@ -1,5 +1,5 @@
 import CategoryItem from "./CategoryItem";
-import "./categories.scss";
+import "./Categories.scss";
 
 const Categories = ({ categories }) => {
   const categoryItems = categories.map(category => {
