@@ -7,7 +7,8 @@ import {
   GoogleAuthProvider, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
-  signOut 
+  signOut,
+  onAuthStateChanged 
 } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -92,3 +93,6 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
 // sign out current user
 export const signOutUser = async () => await signOut(auth);
+
+// auth token listener
+export const onAuthStateChangedListener = (cb) => onAuthStateChanged(auth, cb);
