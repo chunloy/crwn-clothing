@@ -44,8 +44,10 @@ export const db = getFirestore();
 // --------------------- Helpers ---------------------
 // Create new document in db
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
-  if(!userAuth) return;
 
+  // check for valid auth token from sign in
+  if(!userAuth) return;
+  
   const {uid, displayName, email} = userAuth;
 
   // get doc ref from db using user id

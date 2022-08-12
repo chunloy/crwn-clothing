@@ -14,9 +14,9 @@ export const UserProvider = ({ children }) => {
 
     // listen for changes to auth token
     const unsubscribe = onAuthStateChangedListener((user) => {
-      
       // create user document from auth token
-      if(user) createUserDocumentFromAuth(user);
+      console.log(user);
+      user && createUserDocumentFromAuth(user);
 
       setCurrentUser(user);
     });
