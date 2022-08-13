@@ -12,8 +12,7 @@ const ProductCard = ({ name, price, imageURL }) => {
       </div>
       <Button buttonType="inverted">Add to Cart</Button>
     </div>
-
   );
-}
+};
 
 export default ProductCard;
