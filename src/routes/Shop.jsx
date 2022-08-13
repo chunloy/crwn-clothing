@@ -6,8 +6,8 @@ import "./Shop.scss";
 const Shop = () => {
   const { products } = useContext(ProductsContext);
 
-  const productsList = products.map(({ id, ...productDetails }) => (
-    <ProductCard key={id} {...productDetails} />
+  const productsList = products.map((product) => (
+    <ProductCard key={product.id} product={product} />
   ));
 
   return <div className="products-container">{productsList}</div>;
