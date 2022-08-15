@@ -5,11 +5,12 @@ export const CartContext = createContext({
   setIsCartOpen: () => {},
   cartItems: [],
   addToCart: () => {},
+  removeFromCart: () => {},
   cartCount: 0,
 });
 
 export const addCartItem = (cartItems, productToAdd) => {
-  // find existing product in cart
+  // find existing product in cart by id
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === productToAdd.id
   );
@@ -27,6 +28,25 @@ export const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
 
+const removeCartItem = (cartItems, productToRemove) => {
+  // find existing product in cart by id
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToRemove.id
+  );
+
+  // Remove product from cart if quantity is 1
+  if (existingCartItem.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== productToRemove.id);
+  }
+
+  // decrement quantity by 1
+  return cartItems.map((cartItem) =>
+    cartItem.id === productToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
+
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -34,6 +54,10 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
+  };
+
+  const removeFromCart = (productToRemove) => {
+    setCartItems(removeCartItem(cartItems, productToRemove));
   };
 
   // update cart count each time an item is added or quantity is updated
@@ -46,7 +70,14 @@ export const CartProvider = ({ children }) => {
     setCartCount(newCartCount);
   }, [cartItems]);
 
-  const value = { isCartOpen, setIsCartOpen, addToCart, cartItems, cartCount };
+  const value = {
+    isCartOpen,
+    setIsCartOpen,
+    addToCart,
+    removeFromCart,
+    cartItems,
+    cartCount,
+  };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
