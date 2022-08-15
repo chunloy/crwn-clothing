@@ -20,7 +20,7 @@ const CartDropdown = () => {
   return (
     <div className="cart-dropdown-container">
       <div className="cart-items">{cartItemList}</div>
-      <Button onClick={onClickHandler}>Checkout</Button>
+      <Button onClick={onClickHandler}>Go To Checkout</Button>
     </div>
   );
 };
