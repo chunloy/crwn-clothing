@@ -1,14 +1,23 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
-import { 
-  getAuth, 
-  signInWithPopup, 
-  GoogleAuthProvider, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
+
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged 
+  onAuthStateChanged,
 } from "firebase/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -21,7 +30,7 @@ const firebaseConfig = {
   projectId: "e-commerce-db-83785",
   storageBucket: "e-commerce-db-83785.appspot.com",
   messagingSenderId: "742507019573",
-  appId: "1:742507019573:web:9951dd902c510fd8c6a07c"
+  appId: "1:742507019573:web:9951dd902c510fd8c6a07c",
 };
 
 // Initialize Firebase
@@ -31,7 +40,7 @@ initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 
 provider.setCustomParameters({
-  prompt: "select_account"
+  prompt: "select_account",
 });
 
 export const auth = getAuth();
@@ -40,31 +49,32 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 // Instantiate database
 export const db = getFirestore();
 
-
 // --------------------- Helpers ---------------------
 // Create new document in db
-export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
-
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInfo = {}
+) => {
   // check for valid auth token from sign in
-  if(!userAuth) return;
-  
-  const {uid, displayName, email} = userAuth;
+  if (!userAuth) return;
+
+  const { uid, displayName, email } = userAuth;
 
   // get doc ref from db using user id
-  const userDocRef = doc(db, 'users', uid);
+  const userDocRef = doc(db, "users", uid);
 
   try {
     // check if user exists in db
     const userSnapshot = await getDoc(userDocRef);
 
     // add new user to db
-    if(!userSnapshot.exists()) createUser(userDocRef, displayName, email, additionalInfo);
-    
-    return userDocRef;
+    if (!userSnapshot.exists())
+      createUser(userDocRef, displayName, email, additionalInfo);
 
-  } catch(err) {
-    console.log('Error creating the user', err.message);
-  };
+    return userDocRef;
+  } catch (err) {
+    console.log("Error creating the user", err.message);
+  }
 };
 
 // Create new user in db
@@ -83,13 +93,13 @@ const createUser = async (userDocRef, displayName, email, additionalInfo) => {
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
 
-  return await createUserWithEmailAndPassword(auth, email, password);  
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
 
 // authenticate existing user with credentials
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
-  
+
   return await signInWithEmailAndPassword(auth, email, password);
 };
 
@@ -98,3 +108,27 @@ export const signOutUser = async () => await signOut(auth);
 
 // auth token listener
 export const onAuthStateChangedListener = (cb) => onAuthStateChanged(auth, cb);
+
+// create new collection in db (categories)
+// add documents to db (products)
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  // create new collection ref
+  const collectionRef = collection(db, collectionKey);
+
+  // create batch instance
+  const batch = writeBatch(db);
+
+  // create documents using product titles from shop data
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+
+    batch.set(docRef, object);
+  });
+
+  // attempt to write data to db
+  await batch.commit();
+  console.log("done");
+};
