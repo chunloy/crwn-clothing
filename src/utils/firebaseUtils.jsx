@@ -8,6 +8,8 @@ import {
   setDoc,
   collection,
   writeBatch,
+  query,
+  getDocs,
 } from "firebase/firestore";
 
 import {
@@ -131,4 +133,26 @@ export const addCollectionAndDocuments = async (
   // attempt to write data to db
   await batch.commit();
   console.log("done");
+};
+
+// fetch data from db
+export const getCategoriesAndDocuments = async () => {
+  // get collection reference from db
+  const collectionRef = collection(db, "categories");
+
+  // generate new query object
+  const createQueryFromCollectionRef = query(collectionRef);
+
+  // fetch documents from db
+  const querySnapshot = await getDocs(createQueryFromCollectionRef);
+
+  // map new categories object using data from snapshot
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+    acc[title.toLowerCase()] = items;
+
+    return acc;
+  }, {});
+
+  return categoryMap;
 };
