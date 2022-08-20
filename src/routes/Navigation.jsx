@@ -19,19 +19,19 @@ const Navigation = () => {
     <>
       <div className="navigation">
         <Link className="logo-container" to="/">
-          <Logo className="logo" />
+          <Logo />
         </Link>
         <div className="nav-links-container">
           <Link className="nav-link" to="/shop">
-            Shop
+            SHOP
           </Link>
           {currentUser ? (
             <Link className="nav-link" to="/" onClick={signOutUser}>
-              Sign Out
+              SIGN OUT
             </Link>
           ) : (
             <Link className="nav-link" to="/auth">
-              Sign In
+              SIGN IN
             </Link>
           )}
           <CartIcon />
