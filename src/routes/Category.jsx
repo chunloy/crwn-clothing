@@ -19,7 +19,12 @@ const Category = () => {
       <ProductCard key={product.id} product={product} />
     ));
 
-  return <div className="category-container">{productList}</div>;
+  return (
+    <>
+      <h2 className="category-title">{category.toUpperCase()}</h2>
+      <div className="category-container">{productList}</div>
+    </>
+  );
 };
 
 export default Category;
