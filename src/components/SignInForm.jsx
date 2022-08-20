@@ -1,15 +1,18 @@
 import { useState } from "react";
 import FormInput from "./FormInput";
 import Button from "./Button";
-import { signInWithGooglePopup, signInAuthUserWithEmailAndPassword } from "../utils/firebaseUtils";
+import {
+  signInWithGooglePopup,
+  signInAuthUserWithEmailAndPassword,
+} from "../utils/firebaseUtils";
 import "./SignUpForm.scss";
 
 const SignInForm = () => {
   const initializeFields = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
-  
+
   const [formFields, setFormFields] = useState(initializeFields);
   const { email, password } = formFields;
 
@@ -20,7 +23,7 @@ const SignInForm = () => {
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
 
-    setFormFields({...formFields, [name]: value});
+    setFormFields({ ...formFields, [name]: value });
   };
 
   // authenticate existing user with credentials
@@ -30,32 +33,30 @@ const SignInForm = () => {
     try {
       resetForm();
       await signInAuthUserWithEmailAndPassword(email, password);
-      
-    } catch(err) {
-      switch(err.code) {
-        case 'auth/wrong-password':
+    } catch (err) {
+      switch (err.code) {
+        case "auth/wrong-password":
           alert("Incorrect password for this account. Try again.");
           break;
-        
-        case 'auth/user-not-found':
+
+        case "auth/user-not-found":
           alert("No user associated with this email. Sign up instead.");
           break;
-    
+
         default:
-          console.log('Encountered an error with user sign in', err.message);
+          console.log("Encountered an error with user sign in", err.message);
           break;
-      };
-    };
+      }
+    }
   };
 
   // authenticate user with google sign in
   const googleSignIn = async () => {
     try {
       await signInWithGooglePopup();
-
-    } catch(err) {
+    } catch (err) {
       console.log("Encountered an error with Google sign in", err.message);
-    };
+    }
   };
 
   const inputAttributes = [
@@ -77,7 +78,9 @@ const SignInForm = () => {
     },
   ];
 
-  const inputForms = inputAttributes.map((a, index) => <FormInput key={index} {...a}/>);
+  const inputForms = inputAttributes.map((a, index) => (
+    <FormInput key={index} {...a} />
+  ));
 
   return (
     <div className="sign-up-container">
@@ -90,12 +93,11 @@ const SignInForm = () => {
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
           <Button type="button" onClick={googleSignIn} buttonType="google">
-            Google Sign In
+            Sign in with Google
           </Button>
         </div>
       </form>
     </div>
-
   );
 };
 
