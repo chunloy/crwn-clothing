@@ -27,12 +27,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBXFZLmJ47WuLBv_nQZBS8QpCoANpyHKMs",
-  authDomain: "e-commerce-db-83785.firebaseapp.com",
-  projectId: "e-commerce-db-83785",
-  storageBucket: "e-commerce-db-83785.appspot.com",
-  messagingSenderId: "742507019573",
-  appId: "1:742507019573:web:9951dd902c510fd8c6a07c",
+  apiKey: "AIzaSyBMpO5oDlDr6EuF_hZtqIXb9OVvoWSDA0E",
+  authDomain: "e-commerce-db-c1aa9.firebaseapp.com",
+  projectId: "e-commerce-db-c1aa9",
+  storageBucket: "e-commerce-db-c1aa9.appspot.com",
+  messagingSenderId: "828412777940",
+  appId: "1:828412777940:web:9cdfddf6e407150b0c3241",
 };
 
 // Initialize Firebase
@@ -132,7 +132,6 @@ export const addCollectionAndDocuments = async (
 
   // attempt to write data to db
   await batch.commit();
-  console.log("done");
 };
 
 // fetch data from db
