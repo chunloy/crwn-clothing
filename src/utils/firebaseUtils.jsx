@@ -27,12 +27,12 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBMpO5oDlDr6EuF_hZtqIXb9OVvoWSDA0E",
-  authDomain: "e-commerce-db-c1aa9.firebaseapp.com",
-  projectId: "e-commerce-db-c1aa9",
-  storageBucket: "e-commerce-db-c1aa9.appspot.com",
-  messagingSenderId: "828412777940",
-  appId: "1:828412777940:web:9cdfddf6e407150b0c3241",
+  apiKey: "AIzaSyBz36yaVLawFWoOPB9JZzXxM_4DGR2weUs",
+  authDomain: "crwn-clothing-db-d9fb4.firebaseapp.com",
+  projectId: "crwn-clothing-db-d9fb4",
+  storageBucket: "crwn-clothing-db-d9fb4.appspot.com",
+  messagingSenderId: "459494360342",
+  appId: "1:459494360342:web:816354f565943751cfbc37",
 };
 
 // Initialize Firebase
@@ -62,14 +62,14 @@ export const createUserDocumentFromAuth = async (
 
   const { uid, displayName, email } = userAuth;
 
-  // get doc ref from db using user id
+  // create temp doc ref from db using user id
   const userDocRef = doc(db, "users", uid);
 
   try {
-    // check if user exists in db
+    // check if user exists in collection
     const userSnapshot = await getDoc(userDocRef);
 
-    // add new user to db
+    // add new user to collection
     if (!userSnapshot.exists())
       createUser(userDocRef, displayName, email, additionalInfo);
 
@@ -113,6 +113,7 @@ export const onAuthStateChangedListener = (cb) => onAuthStateChanged(auth, cb);
 
 // create new collection in db (categories)
 // add documents to db (products)
+// need to import this function into categories context along with data.js, call with useEffect
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
