@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import "./CategoryItem.scss";
+import {
+  CategoryItemContainer,
+  CategoryItemBodyContainer,
+  BackgroundImage,
+} from "./CategoryItemStyles";
 
 const CategoryItem = ({ category }) => {
   const { title, imageURL, route } = category;
@@ -8,16 +12,13 @@ const CategoryItem = ({ category }) => {
   const onClickHandler = () => navigate(route);
 
   return (
-    <div className="category-item-container" onClick={onClickHandler}>
-      <div
-        className="background-img"
-        style={{ backgroundImage: `url(${imageURL})` }}
-      />
-      <div className="category-item-body-container">
+    <CategoryItemContainer onClick={onClickHandler}>
+      <BackgroundImage imageURL={imageURL} />
+      <CategoryItemBodyContainer>
         <h2>{title}</h2>
         <p>Shop Now</p>
-      </div>
-    </div>
+      </CategoryItemBodyContainer>
+    </CategoryItemContainer>
   );
 };
 
