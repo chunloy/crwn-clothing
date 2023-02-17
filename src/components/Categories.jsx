@@ -1,12 +1,12 @@
 import CategoryItem from "./CategoryItem";
-import "./Categories.scss";
+import { CategoriesContainer } from "./CategoriesStyles";
 
 const Categories = ({ categories }) => {
   const categoryItems = categories.map((category) => (
     <CategoryItem key={category.id} category={category} />
   ));
 
-  return <div className="categories-container">{categoryItems}</div>;
+  return <CategoriesContainer>{categoryItems}</CategoriesContainer>;
 };
 
 export default Categories;
