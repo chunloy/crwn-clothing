@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
 import ProductCard from "./ProductCard";
-import "./CategoryPreview.scss";
+import {
+  CategoryPreviewContainer,
+  Title,
+  Preview,
+} from "./CategoryPreviewStyles";
 
 const CategoryPreview = ({ title, products }) => {
   const previewItems = products
@@ -8,14 +11,12 @@ const CategoryPreview = ({ title, products }) => {
     .map((product) => <ProductCard key={product.id} product={product} />);
 
   return (
-    <div className="category-preview-container">
+    <CategoryPreviewContainer>
       <h2>
-        <Link className="title" to={title}>
-          {title.toUpperCase()}
-        </Link>
+        <Title to={title}>{title}</Title>
       </h2>
-      <div className="preview">{previewItems}</div>
-    </div>
+      <Preview>{previewItems}</Preview>
+    </CategoryPreviewContainer>
   );
 };
 
