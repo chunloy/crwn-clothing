@@ -1,15 +1,18 @@
 import { useState } from "react";
 import FormInput from "./FormInput";
 import Button from "./Button";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../utils/firebaseUtils";
-import "./SignUpForm.scss";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../utils/firebaseUtils";
+import { SignUpContainer } from "./SignUpFormStyles";
 
 const SignUpForm = () => {
   const initializeFields = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    displayName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
 
   const [formFields, setFormFields] = useState(initializeFields);
@@ -22,32 +25,36 @@ const SignUpForm = () => {
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
 
-    setFormFields({...formFields, [name]: value});
+    setFormFields({ ...formFields, [name]: value });
   };
 
   // authenticate new user with credentials
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // check for password match 
-    if(password !== confirmPassword) return alert(`Passwords don't match!`);
+    // check for password match
+    if (password !== confirmPassword) return alert(`Passwords don't match!`);
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
       resetForm();
       await createUserDocumentFromAuth(user, { displayName });
-      
-    } catch(err) {
-      switch(err.code) {
-        case 'auth/email-already-in-use':
-          alert("There's already an account associated with this email address. Sign in instead.")
+    } catch (err) {
+      switch (err.code) {
+        case "auth/email-already-in-use":
+          alert(
+            "There's already an account associated with this email address. Sign in instead."
+          );
           break;
 
-        default: 
-          console.log('Encountered an error creating user', err.message);
+        default:
+          console.log("Encountered an error creating user", err.message);
           break;
-      };
-    };
+      }
+    }
   };
 
   const inputAttributes = [
@@ -85,10 +92,12 @@ const SignUpForm = () => {
     },
   ];
 
-  const inputForms = inputAttributes.map((a, index) => <FormInput key={index} {...a}/>);
+  const inputForms = inputAttributes.map((a, index) => (
+    <FormInput key={index} {...a} />
+  ));
 
   return (
-    <div className="sign-up-container">
+    <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={onSubmitHandler}>
@@ -96,7 +105,7 @@ const SignUpForm = () => {
 
         <Button type="submit">Sign Up</Button>
       </form>
-    </div>
+    </SignUpContainer>
   );
 };
 
